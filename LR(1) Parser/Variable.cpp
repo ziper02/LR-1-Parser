@@ -5,7 +5,7 @@ using namespace std;
 Variable::Variable(string originalName)
 {
 	name = "";
-	this->name = originalName; //thrsid
+	this->name = originalName; 
 	string temp;
 	for (int i = 0; i < originalName.size(); i++)
 	{
