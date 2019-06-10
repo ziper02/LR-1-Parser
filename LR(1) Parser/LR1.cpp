@@ -5,7 +5,7 @@
 LR1::LR1(vector<string> arg, string start)
 {
 	int i;
-	bool flag = true;
+	bool flag = true; //last change
 	this->start = Variable(start);
 	for (string st : arg)
 		rules.push_back(Rule(st));
