@@ -51,3 +51,10 @@ string Item::getItemString()
 	}
 	return temp;
 }
+
+Item::Item(Item& items)
+{
+	expression.push_back(Terminal("*"));
+	for(IItem iitem: items.expression)
+		expression.push_back(iitem);
+}

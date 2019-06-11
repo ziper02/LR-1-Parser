@@ -11,6 +11,8 @@
 using namespace std;
 
 
+class State;
+class Edge;
 class IItem
 {
 public:
@@ -40,7 +42,9 @@ class Item
 public:
 	vector<IItem> expression;
 	Item(string);
+	Item(Item&);
 	string getItemString();
+
 };
 
 class Rule
@@ -49,17 +53,58 @@ public:
 	Variable leftSide;
 	vector<Item> rightSide;
 
+	Rule() {};
 	Rule(string);
+	Rule(Rule&);
 	string getRuleString();
 };
 
 class LR1
 {
 public:
-	Variable start;
+	Rule start;
 	vector<Rule> rules;
 	LR1(vector<string>, string);
 	void printGrammer();
+private:
+	void createStartRule(string);
+};
+
+
+class StateItem
+{
+public :
+	Rule rule;
+	Terminal lookahead;
+	StateItem() {};
+	StateItem(Rule, Terminal);
+};
+class Edge
+{
+public:
+	IItem cross;
+	State target;
+	Edge() {};
+	Edge(IItem);
+};
+
+class State
+{
+public:
+	vector<StateItem> rules;
+	vector<Edge> edges;
+
+};
+
+class Automata
+{
+public:
+	State start;
+	vector<State> stats;
+	LR1 context;
+	Automata(LR1);
+
+	
 };
 
 

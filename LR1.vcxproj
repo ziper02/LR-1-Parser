@@ -98,12 +98,15 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Edge.cpp" />
     <ClCompile Include="lr(1) parser\Item.cpp" />
     <ClCompile Include="lr(1) parser\LR1.cpp" />
     <ClCompile Include="lr(1) parser\Main.cpp" />
     <ClCompile Include="lr(1) parser\Rule.cpp" />
     <ClCompile Include="lr(1) parser\Terminal.cpp" />
     <ClCompile Include="lr(1) parser\Variable.cpp" />
+    <ClCompile Include="State.cpp" />
+    <ClCompile Include="StateItem.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="lr(1) parser\LR_1.h" />

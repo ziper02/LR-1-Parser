@@ -47,3 +47,10 @@ string Rule::getRuleString()
 	}
 	return temp;
 }
+
+Rule::Rule(Rule &rule)
+{
+	leftSide = leftSide;
+	for(Item item:rule.rightSide)
+		rightSide.push_back(Item(item));
+}
