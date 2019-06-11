@@ -43,37 +43,35 @@ void LR1::createStartRule(string st)
 }
 
 
-vector<Terminal> LR1::First(vector<IItem> st)
+set<Terminal> LR1::First(vector<IItem> st)
 {
-	vector<Terminal> vec;
-	if (Terminal * p = dynamic_cast<Terminal*>(&st.at(0)))
+	map <IItem, set<Terminal>> result = this->First();
+	set<Variable> eps = this->eps();
+	set<Terminal> first=result[st.at(0)];
+	Variable* p;
+	if(p = dynamic_cast<Variable*>(&st.at(1)))
 	{
-		vec.push_back(*p);
-		return vec;
-	}
-	else
-	{
-		Variable* q = dynamic_cast<Variable*>(&st.at(0));
-		for (Rule rule : rules)
+		for (int i = 2; i < st.size() && eps.count(*p);)
 		{
-			if ((*q) == rule.leftSide)
+			first.insert(result[st.at(i)].begin(),result[st.at(i)].end());
+			if ((p = dynamic_cast<Variable*>(&st.at(++i)))==NULL)
 			{
-				vector<Terminal> temp;
-				temp=First(rule.rightSide.expression);
-
+				first.insert(result[st.at(i)].begin(), result[st.at(i)].end());
+				break;
 			}
 		}
 	}
+	return first;
 }
 
 
-vector<Variable> LR1::eps()
+set<Variable> LR1::eps()
 {
-	vector <Variable> que;
+	set <Variable> que;
 	for(Rule rule: rules)
 	{
 		if (rule.rightSide.expression.at(0) == Terminal("e"))
-			que.push_back(rule.leftSide);
+			que.insert(rule.leftSide);
 
 	}
 	int sizeofque=0;
@@ -94,16 +92,17 @@ vector<Variable> LR1::eps()
 				}
 				if(flag)
 					if (find(que.begin(), que.end(), (rule.leftSide)) == que.end())
-						que.push_back(rule.leftSide);
+						que.insert(rule.leftSide);
 			}
 		}
 	}
 	return que;
 }
+
 map<IItem,set<Terminal>> LR1::First()
 {
 	map<IItem, set<Terminal>> result;
-	vector<Variable> eps = this->eps();
+	set<Variable> eps = this->eps();
 	bool flag=true;
 	for(Rule rule: this->rules)
 	{

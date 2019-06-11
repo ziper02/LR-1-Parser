@@ -79,8 +79,8 @@ public:
 	LR1(){};
 	LR1(vector<string>, string);
 	void printGrammer();
-	vector<Terminal> First(vector<IItem>);
-	vector<Variable> eps();
+	set<Terminal> First(vector<IItem>);
+	set<Variable> eps();
 	map<IItem,set<Terminal>> First();
 private:
 	void createStartRule(string);
