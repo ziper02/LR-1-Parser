@@ -81,6 +81,7 @@ public:
 	void printGrammer();
 	vector<Terminal> First(vector<IItem>);
 	vector<Variable> eps();
+	map<IItem,set<Terminal>> First();
 private:
 	void createStartRule(string);
 };

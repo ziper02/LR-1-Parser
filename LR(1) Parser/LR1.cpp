@@ -100,3 +100,50 @@ vector<Variable> LR1::eps()
 	}
 	return que;
 }
+map<IItem,set<Terminal>> LR1::First()
+{
+	map<IItem, set<Terminal>> result;
+	vector<Variable> eps = this->eps();
+	bool flag=true;
+	for(Rule rule: this->rules)
+	{
+		for(IItem item: rule.rightSide.expression)
+		{
+			if (Terminal * p = dynamic_cast<Terminal*>(&item))
+				result[item] = { *p };
+			else
+				result[item] = {};
+		}
+		result[rule.leftSide] = {};
+	}
+	while(flag)
+	{
+		for (Rule rule : rules)
+		{
+			int sizeflag = result[rule.leftSide].size();
+			result[rule.leftSide].insert(result[rule.rightSide.expression.at(0)].begin(),
+				result[rule.rightSide.expression.at(0)].end());
+			flag = (result[rule.leftSide].size() != sizeflag);
+
+			for(int i=1;i<rule.rightSide.expression.size();i++)
+			{
+				sizeflag = result[rule.leftSide].size();
+				if (find(eps.begin(), eps.end(), rule.rightSide.expression.at(i)) != eps.end())
+				{
+					result[rule.leftSide].insert(result[rule.rightSide.expression.at(i)].begin(),
+						result[rule.rightSide.expression.at(i)].end());
+				}
+				else
+					break;
+				flag = flag || (sizeflag != result[rule.leftSide].size());
+			}
+		}
+	}
+	return result;
+}
+
+
+
+
+
+
