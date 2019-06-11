@@ -2,6 +2,8 @@
 #include "LR_1.h"
 using namespace std;
 
+
+
 Variable::Variable(string originalName)
 {
 	name = "";

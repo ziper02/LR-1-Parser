@@ -57,3 +57,12 @@ Item::Item(const Item& items)
 	for(IItem iitem: items.expression)
 		expression.push_back(iitem);
 }
+
+
+bool IItem::isTerminal()
+{
+	if (Terminal * p = dynamic_cast<Terminal*>(this))
+		return true;
+	else
+		return false;
+}

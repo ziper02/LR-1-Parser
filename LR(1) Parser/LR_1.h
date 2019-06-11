@@ -23,6 +23,8 @@ public:
 	friend bool operator==(const IItem& lhs, const IItem& rhs) {
 		return (lhs.name == rhs.name);
 	}
+	bool isTerminal();
+
 };
 
 
@@ -34,7 +36,6 @@ public:
 	virtual  ~Variable() {};
 	Variable() {};
 	Variable(string);
-
 };
 
 class Terminal : public IItem
@@ -103,12 +104,13 @@ public:
 	Terminal lookahead;
 	StateItem() {};
 	StateItem(Rule, Terminal);
+	vector<IItem>getBeta();
 };
 
 class State
 {
 public:
-	vector<StateItem> rules;
+	set<StateItem> rules;
 	vector<Edge> edges;
 	State() {};
 	void clousre(LR1);

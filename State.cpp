@@ -4,22 +4,31 @@
 
 void State::clousre(LR1 context)
 {
-	for(StateItem state_item: rules)
+	bool flag = true;
+	while (flag)
 	{
-		IItem temp = state_item.rule.rightSide.expression.at(state_item.sperator + 1);
-		if (Variable * p = dynamic_cast<Variable*>(&temp))
+		flag = false;
+		int size = rules.size();
+		for (StateItem state_item : rules)
 		{
-			for(Rule rule: context.rules)
+			if (!(state_item.rule.rightSide.expression.at(state_item.sperator)).isTerminal())
 			{
-				if((*p)==rule.leftSide)
+				for (Rule rule : context.rules)
 				{
-					
+					if (rule.leftSide == state_item.rule.rightSide.expression.at(state_item.sperator))
+					{
+						vector<IItem> forfirst = state_item.getBeta();
+						forfirst.push_back(state_item.lookahead);
+						for (Terminal terminal : context.First(forfirst))
+						{
+							StateItem state(rule, terminal);
+							rules.insert(state);
+						}
+					}
 				}
 			}
 		}
-		else
-		{
-			// obj is not a C
-		}
+		if (size != rules.size())
+			flag = true;
 	}
 }
