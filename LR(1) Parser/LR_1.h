@@ -12,7 +12,7 @@ using namespace std;
 
 
 class State;
-class Edge;
+
 class IItem
 {
 public:
@@ -28,6 +28,9 @@ public:
 
 	Variable() {};
 	Variable(string);
+	friend bool operator==(const Variable& lhs, const Variable& rhs) {
+		return (lhs.short_name == rhs.short_name);
+	}
 };
 
 class Terminal : public IItem
@@ -41,8 +44,9 @@ class Item
 {
 public:
 	vector<IItem> expression;
+	Item(){};
 	Item(string);
-	Item(Item&);
+	Item(const Item&);
 	string getItemString();
 
 };
@@ -51,11 +55,13 @@ class Rule
 {
 public:
 	Variable leftSide;
-	vector<Item> rightSide;
+	Item rightSide;
 
 	Rule() {};
-	Rule(string);
-	Rule(Rule&);
+	Rule(Variable,Item);
+	static vector<Rule>createRule(string);
+	Rule(const Rule&);
+
 	string getRuleString();
 };
 
@@ -64,28 +70,31 @@ class LR1
 public:
 	Rule start;
 	vector<Rule> rules;
+	LR1(){};
 	LR1(vector<string>, string);
 	void printGrammer();
+	vector<Terminal> First(vector<IItem>);
 private:
 	void createStartRule(string);
 };
 
-
-class StateItem
-{
-public :
-	Rule rule;
-	Terminal lookahead;
-	StateItem() {};
-	StateItem(Rule, Terminal);
-};
 class Edge
 {
 public:
 	IItem cross;
-	State target;
+	State *target;
 	Edge() {};
 	Edge(IItem);
+};
+
+class StateItem
+{
+public:
+	Rule rule;
+	int sperator;
+	Terminal lookahead;
+	StateItem() {};
+	StateItem(Rule, Terminal);
 };
 
 class State
@@ -93,7 +102,9 @@ class State
 public:
 	vector<StateItem> rules;
 	vector<Edge> edges;
-
+	State() {};
+	void clousre(LR1);
+	bool StateItemExist(StateItem);
 };
 
 class Automata
@@ -103,7 +114,7 @@ public:
 	vector<State> stats;
 	LR1 context;
 	Automata(LR1);
-
+	
 	
 };
 

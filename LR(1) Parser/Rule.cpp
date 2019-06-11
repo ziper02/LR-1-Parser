@@ -2,8 +2,16 @@
 #include "LR_1.h"
 
 
-Rule::Rule(string rule)
+Rule::Rule(Variable var,Item item)
 {
+	this->leftSide = var;
+	this->rightSide = item;
+}
+
+ vector<Rule> Rule::createRule(string rule)
+{
+	 vector<Rule> rules;
+	Variable leftSide;
 	int i = 0, startIndex;
 	bool flag = true;
 	string temp = "";
@@ -24,33 +32,26 @@ Rule::Rule(string rule)
 		{
 			temp = rule.substr(startIndex, i - startIndex - 1);
 			startIndex = i + 1;
-			rightSide.push_back(Item(temp));
+			rules.push_back(Rule(leftSide,Item(temp)));
 		}
 	}
 	temp = rule.substr(startIndex, i - startIndex + 1);
-	rightSide.push_back(Item(temp));
+	rules.push_back(Rule(leftSide, Item(temp)));
+	return rules;
 }
 
 
 string Rule::getRuleString()
 {
 	string temp = "";
-	int i = 0;
-	for (Item item : rightSide)
-	{
-		temp.append(leftSide.name);
-		temp.append(" --> ");
-		temp.append(item.getItemString());
-		if (i != rightSide.size() - 1)
-			temp.append("\n");
-		i++;
-	}
+	temp.append(leftSide.name);
+	temp.append(" --> ");
+	temp.append(rightSide.getItemString());
 	return temp;
 }
 
-Rule::Rule(Rule &rule)
+Rule::Rule(const Rule &rule)
 {
-	leftSide = leftSide;
-	for(Item item:rule.rightSide)
-		rightSide.push_back(Item(item));
+	this->leftSide = rule.leftSide;
+	this->rightSide = rule.rightSide;
 }
