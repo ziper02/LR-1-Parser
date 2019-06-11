@@ -55,3 +55,17 @@ Rule::Rule(const Rule &rule)
 	this->leftSide = rule.leftSide;
 	this->rightSide = rule.rightSide;
 }
+
+
+bool Rule::includeTerminal()
+{
+	for(IItem temp : this->rightSide.expression)
+	{
+		if(Terminal * p = dynamic_cast<Terminal*>(&temp))
+		{
+			if (!((*p) == Terminal("e")))
+				return true;
+		}
+	}
+	return false;
+}

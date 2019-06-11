@@ -1,6 +1,7 @@
 
 #include  "LR_1.h"
 
+#include <algorithm>
 
 LR1::LR1(vector<string> arg, string start)
 {
@@ -63,4 +64,43 @@ vector<Terminal> LR1::First(vector<IItem> st)
 			}
 		}
 	}
+}
+
+
+vector<Variable> LR1::eps()
+{
+	vector <Variable> que;
+	for(Rule rule: rules)
+	{
+		if (rule.rightSide.expression.at(0) == Terminal("e"))
+			que.push_back(rule.leftSide);
+
+	}
+	int sizeofque=0;
+
+	while(que.size()!= sizeofque)
+	{
+		sizeofque = que.size();
+
+		for(Rule rule:rules)
+		{
+			if(rule.includeTerminal()==false)
+			{
+				bool flag = true;
+				for(IItem item: rule.rightSide.expression)
+				{
+					Variable* q = dynamic_cast<Variable*>(&item);
+					if(find(que.begin(),que.size(),(*q))==que.end())
+					{
+						
+					}
+				}
+			}
+		}
+
+	}
+
+
+
+
 }

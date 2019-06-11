@@ -1,12 +1,14 @@
 #ifndef LR_1_h
 #define LR_1_h
 
+
+#include <algorithm>
 #include <iostream>
 #include <vector>
 #include <set>
 #include <map>
 #include <stack>
-#include <algorithm>
+
 
 using namespace std;
 
@@ -17,6 +19,9 @@ class IItem
 {
 public:
 	string name;
+	friend bool operator==(const IItem& lhs, const IItem& rhs) {
+		return (lhs.name == rhs.name);
+	}
 };
 
 
@@ -28,9 +33,7 @@ public:
 
 	Variable() {};
 	Variable(string);
-	friend bool operator==(const Variable& lhs, const Variable& rhs) {
-		return (lhs.short_name == rhs.short_name);
-	}
+
 };
 
 class Terminal : public IItem
@@ -61,7 +64,7 @@ public:
 	Rule(Variable,Item);
 	static vector<Rule>createRule(string);
 	Rule(const Rule&);
-
+	bool includeTerminal();
 	string getRuleString();
 };
 
@@ -74,6 +77,7 @@ public:
 	LR1(vector<string>, string);
 	void printGrammer();
 	vector<Terminal> First(vector<IItem>);
+	vector<Variable> eps();
 private:
 	void createStartRule(string);
 };
