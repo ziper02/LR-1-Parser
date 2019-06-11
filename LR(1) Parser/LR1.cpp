@@ -77,7 +77,6 @@ vector<Variable> LR1::eps()
 
 	}
 	int sizeofque=0;
-
 	while(que.size()!= sizeofque)
 	{
 		sizeofque = que.size();
@@ -90,17 +89,14 @@ vector<Variable> LR1::eps()
 				for(IItem item: rule.rightSide.expression)
 				{
 					Variable* q = dynamic_cast<Variable*>(&item);
-					if(find(que.begin(),que.size(),(*q))==que.end())
-					{
-						
-					}
+					if(find(que.begin(), que.end(), (*q)) ==que.end())
+						flag = false;
 				}
+				if(flag)
+					if (find(que.begin(), que.end(), (rule.leftSide)) == que.end())
+						que.push_back(rule.leftSide);
 			}
 		}
-
 	}
-
-
-
-
+	return que;
 }

@@ -19,6 +19,7 @@ class IItem
 {
 public:
 	string name;
+	virtual  ~IItem() {};
 	friend bool operator==(const IItem& lhs, const IItem& rhs) {
 		return (lhs.name == rhs.name);
 	}
@@ -30,7 +31,7 @@ class Variable :public IItem
 public:
 
 	string short_name;
-
+	virtual  ~Variable() {};
 	Variable() {};
 	Variable(string);
 
@@ -40,6 +41,7 @@ class Terminal : public IItem
 {
 public:
 	Terminal() {};
+	virtual ~Terminal() {};
 	Terminal(string);
 };
 
@@ -61,6 +63,7 @@ public:
 	Item rightSide;
 
 	Rule() {};
+	virtual ~Rule() {};
 	Rule(Variable,Item);
 	static vector<Rule>createRule(string);
 	Rule(const Rule&);
