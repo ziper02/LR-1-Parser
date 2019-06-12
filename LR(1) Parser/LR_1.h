@@ -26,7 +26,8 @@ public:
 	friend bool operator!=(const IItem& lhs, const IItem& rhs) {
 		return (lhs.name != rhs.name);
 	}
-
+	bool isExist(vector<IItem>) const;
+	bool isExist(vector<IItem>);
 	bool isTerminal();
 	bool operator < (const IItem& x) const;
 	bool operator > (const IItem& x) const;
@@ -112,8 +113,8 @@ public:
 	StateItem(Rule, Terminal);
 	vector<IItem>getBeta();
 	bool exist(vector<StateItem>);
-	bool operator == (const StateItem& x) const;
-	bool operator < (const StateItem& x) const;
+	bool operator==(const StateItem& x) const;
+	bool operator<(const StateItem& x) const;
 };
 
 class State

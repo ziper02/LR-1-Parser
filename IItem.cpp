@@ -9,6 +9,26 @@ bool IItem::isTerminal()
 		return false;
 }
 
+bool IItem::isExist(vector<IItem> vec) const
+{
+	for(IItem check : vec)
+	{
+		if (check == (*this))
+			return true;
+	}
+	return false;
+}
+
+bool IItem::isExist(vector<IItem> vec) 
+{
+	for (IItem check : vec)
+	{
+		if (check == (*this))
+			return true;
+	}
+	return false;
+}
+
 bool IItem::operator < (const IItem& x) const {
 	if (name < x.name) return true;
 	if (name >= x.name) return false;

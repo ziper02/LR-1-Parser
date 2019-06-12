@@ -9,8 +9,9 @@ void State::clousre(LR1 context)
 	{
 		flag = false;
 		int size = rules.size();
-		for (StateItem state_item : rules)
+		for (int i=0;i<size;i++)
 		{
+			StateItem state_item = rules.at(i);
 			if (!(state_item.rule.rightSide.expression.at(state_item.sperator)).isTerminal())
 			{
 				for (Rule rule : context.rules)

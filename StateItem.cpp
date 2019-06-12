@@ -8,6 +8,7 @@ StateItem::StateItem(Rule rule, Terminal terminal)
 }
 
 
+
 vector<IItem> StateItem::getBeta()
 {
 	vector<IItem> result;
@@ -22,13 +23,13 @@ vector<IItem> StateItem::getBeta()
 	return result;
 }
 
+
+
 bool StateItem::exist(vector<StateItem> x)
 {
-	if (find(x.begin(), x.end(), this) == x.end())
-		return false;
-	else
-		return true;
+	return find(x.begin(), x.end(), *this) != x.end();
 }
+
 
 
 
@@ -43,11 +44,12 @@ bool StateItem::operator == (const StateItem& x) const
 		return false;
 	if (x.rule.leftSide != rule.leftSide)
 		return false;
-	for(IItem myitem: x.rule.rightSide)
-		if (find(rule.rightSide.expression.begin(),rule.rightSide.expression.end(), myitem) != rule.rightSide.expression.end())
+	for(int i=0;i<x.rule.rightSide.expression.size();i++)
+		if (x.rule.rightSide.expression.at(i)!=rule.rightSide.expression.at(i))
 			return false;
 	return true;
 }
+
 
 
 bool StateItem::operator < (const StateItem& x) const
@@ -68,11 +70,9 @@ bool StateItem::operator < (const StateItem& x) const
 		return false;
 	if (x.rule.leftSide > rule.leftSide)
 		return true;
-	for (IItem item : rule.rightSide)
-	{
-		if (find(x.rule.rightSide.expression.begin(),
-		         x.rule.rightSide.expression.end(), item) != x.rule.rightSide.expression.end())
-			return true;
-	}
+	for (int i = 0; i < x.rule.rightSide.expression.size(); i++)
+		if (x.rule.rightSide.expression.at(i).isExist(rule.rightSide.expression))
+			return false;
 	return false;
 }
+
