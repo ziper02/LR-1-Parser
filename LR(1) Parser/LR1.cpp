@@ -12,17 +12,14 @@ LR1::LR1(vector<string> arg, string start)
 	{
 		vector < Rule > result= Rule::createRule(st);
 		for(Rule temp: result)
-		{
 			rules.push_back(temp);
-		}
 	}
 		
-
 }
 
 void LR1::printGrammer()
 {
-	cout << "The Rules are :";
+	cout << "The Rules are :\n";
 	string temp = "";
 	for (Rule rule : rules)
 	{
@@ -49,7 +46,7 @@ set<Terminal> LR1::First(vector<IItem> st)
 	set<Variable> eps = this->eps();
 	set<Terminal> first=result[st.at(0)];
 	Variable* p;
-	if(p = dynamic_cast<Variable*>(&st.at(1)))
+	 if(p = dynamic_cast<Variable*>(&st.at(0)))
 	{
 		for (int i = 2; i < st.size() && eps.count(*p);)
 		{
@@ -115,6 +112,7 @@ map<IItem,set<Terminal>> LR1::First()
 		}
 		result[rule.leftSide] = {};
 	}
+	result[Terminal("$")] = { Terminal("$") };
 	while(flag)
 	{
 		for (Rule rule : rules)

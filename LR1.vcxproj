@@ -105,6 +105,7 @@
   <ItemGroup>
     <ClCompile Include="Automata.cpp" />
     <ClCompile Include="Edge.cpp" />
+    <ClCompile Include="IItem.cpp" />
     <ClCompile Include="lr(1) parser\Item.cpp" />
     <ClCompile Include="lr(1) parser\LR1.cpp" />
     <ClCompile Include="lr(1) parser\Main.cpp" />

@@ -11,6 +11,6 @@ int main(int argc, const char* argv[]) {
 
 	LR1 LR(gr, "<E>");
 	LR.printGrammer();
-
+	Automata automata(LR);
 	return 0;
 }

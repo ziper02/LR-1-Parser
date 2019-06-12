@@ -24,6 +24,7 @@ public:
 		return (lhs.name == rhs.name);
 	}
 	bool isTerminal();
+	bool operator < (const IItem& x) const;
 
 };
 
@@ -36,6 +37,7 @@ public:
 	virtual  ~Variable() {};
 	Variable() {};
 	Variable(string);
+
 };
 
 class Terminal : public IItem
@@ -67,7 +69,7 @@ public:
 	virtual ~Rule() {};
 	Rule(Variable,Item);
 	static vector<Rule>createRule(string);
-	Rule(const Rule&);
+	//Rule(const Rule&);
 	bool includeTerminal();
 	string getRuleString();
 };
@@ -105,6 +107,7 @@ public:
 	StateItem() {};
 	StateItem(Rule, Terminal);
 	vector<IItem>getBeta();
+	bool operator < (const StateItem& x) const;
 };
 
 class State

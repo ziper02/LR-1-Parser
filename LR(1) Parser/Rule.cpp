@@ -50,11 +50,11 @@ string Rule::getRuleString()
 	return temp;
 }
 
-Rule::Rule(const Rule &rule)
-{
-	this->leftSide = rule.leftSide;
-	this->rightSide = rule.rightSide;
-}
+//Rule::Rule(const Rule &rule)
+//{
+//	this->leftSide = rule.leftSide;
+//	this->rightSide = rule.rightSide;
+//}
 
 
 bool Rule::includeTerminal()
