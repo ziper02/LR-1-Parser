@@ -5,7 +5,7 @@
 Automata::Automata(LR1 context)
 {
 	this->context = context;
-	start.rules.insert(StateItem(Rule(this->context.start),Terminal("$")));
+	start.rules.push_back(StateItem(Rule(this->context.start),Terminal("$")));
 	start.clousre(this->context);
 	stats.push_back(start);
 	

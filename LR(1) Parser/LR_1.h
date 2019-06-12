@@ -23,9 +23,13 @@ public:
 	friend bool operator==(const IItem& lhs, const IItem& rhs) {
 		return (lhs.name == rhs.name);
 	}
+	friend bool operator!=(const IItem& lhs, const IItem& rhs) {
+		return (lhs.name != rhs.name);
+	}
+
 	bool isTerminal();
 	bool operator < (const IItem& x) const;
-
+	bool operator > (const IItem& x) const;
 };
 
 
@@ -107,13 +111,15 @@ public:
 	StateItem() {};
 	StateItem(Rule, Terminal);
 	vector<IItem>getBeta();
+	bool exist(vector<StateItem>);
+	bool operator == (const StateItem& x) const;
 	bool operator < (const StateItem& x) const;
 };
 
 class State
 {
 public:
-	set<StateItem> rules;
+	vector<StateItem> rules;
 	vector<Edge> edges;
 	State() {};
 	void clousre(LR1);

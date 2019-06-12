@@ -22,7 +22,8 @@ void State::clousre(LR1 context)
 						for (Terminal terminal : context.First(forfirst))
 						{
 							StateItem state(rule, terminal);
-							rules.insert(state);
+							if (state.exist(this->rules) == false)
+								rules.push_back(state);
 						}
 					}
 				}

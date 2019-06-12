@@ -14,4 +14,9 @@ bool IItem::operator < (const IItem& x) const {
 	if (name >= x.name) return false;
 }
 
+bool IItem::operator > (const IItem& x) const 
+{
+	if (name > x.name) return true;
+	if (name <= x.name) return false;
+}
 
