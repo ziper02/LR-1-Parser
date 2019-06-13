@@ -12,24 +12,27 @@ void State::clousre(LR1 context)
 		for (int i=0;i<size;i++)
 		{
 			StateItem state_item = rules.at(i);
-			if (!(state_item.rule.rightSide.expression.at(state_item.sperator)).isTerminal())
+			if (state_item.rule.rightSide.expression.size()!= state_item.sperator)
 			{
-				for (Rule rule : context.rules)
+				if (!(state_item.rule.rightSide.expression.at(state_item.sperator)).isTerminal())
 				{
-					if (rule.leftSide == state_item.rule.rightSide.expression.at(state_item.sperator))
+					for (Rule rule : context.rules)
 					{
-						vector<IItem> forfirst = state_item.getBeta();
-						forfirst.push_back(state_item.lookahead);
-						for (Terminal terminal : context.First(forfirst))
+						if (rule.leftSide == state_item.rule.rightSide.expression.at(state_item.sperator))
 						{
-							StateItem state(rule, terminal,context);
-							if (state.exist(this->rules) == false)
-								rules.push_back(state);
+							vector<IItem> forfirst = state_item.getBeta();
+							forfirst.push_back(state_item.lookahead);
+							for (Terminal terminal : context.First(forfirst))
+							{
+								StateItem state(rule, terminal, context);
+								if (state.exist(this->rules) == false)
+									rules.push_back(state);
+							}
 						}
 					}
 				}
 			}
-		}
+			}
 		if (size != rules.size())
 			flag = true;
 	}
@@ -39,10 +42,22 @@ void State::clousre(LR1 context)
 
 void State::delta()
 {
-	for(StateItem rule : rules)
+	bool flag = false;
+
+	for (StateItem item : rules)
 	{
-		if ((rule.sperator + 1) != rule.rule.rightSide.expression.size())
-			rule.sperator++;
+		if (item.sperator != item.rule.rightSide.expression.size())
+			flag = true;
+	}
+	if(!flag)
+	{
+		rules.clear();
+		return;
+	}
+	for(int i=0;i<this->rules.size();i++)
+	{
+		if ((this->rules.at(i).sperator) != this->rules.at(i).rule.rightSide.expression.size())
+			this->rules.at(i).sperator++;
 	}
 	this->clousre(rules.at(0).context);
 }
@@ -57,4 +72,27 @@ bool State::operator==(const State& x) const
 			return false;
 	}
 	return true;
+}
+
+
+bool State::operator<(const State& x) const
+{
+	if (this->rules.size() < x.rules.size())
+		return false;
+	if (this->rules.size() > x.rules.size())
+		return true;
+	int countx=0,countthis=0;
+	for (StateItem rule : x.rules)
+	{
+		for(IItem X: rule.rule.rightSide.expression)
+			countx++;
+	}
+	for (StateItem rule : this->rules)
+	{
+		for (IItem X : rule.rule.rightSide.expression)
+			countthis++;
+	}
+	if (countx > countthis)
+		return true;
+	return false;
 }

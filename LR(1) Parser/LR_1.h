@@ -128,6 +128,7 @@ public:
 	void clousre(LR1);
 	void delta();
 	bool operator==(const State& x) const;
+	bool operator<(const State& x) const;
 };
 
 class Automata

@@ -83,5 +83,7 @@ bool StateItem::operator < (const StateItem& x) const
 
 IItem StateItem::getnext()
 {
-	return rule.rightSide.expression.at(sperator + 1);
+	if ((sperator) == rule.rightSide.expression.size())
+		return Terminal("");
+	return rule.rightSide.expression.at(sperator);
 }
