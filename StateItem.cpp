@@ -76,3 +76,20 @@ bool StateItem::operator < (const StateItem& x) const
 	return false;
 }
 
+
+State StateItem::delta()
+{
+	State res;
+	if ((sperator + 1) == this->rule.rightSide.expression.size())
+		return res;
+	else
+	{
+		res.rules.push_back(StateItem(this->rule, this->lookahead));
+		sperator++;
+
+	}
+
+
+}
+
+

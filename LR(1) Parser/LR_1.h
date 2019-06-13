@@ -112,6 +112,7 @@ public:
 	StateItem() {};
 	StateItem(Rule, Terminal);
 	vector<IItem>getBeta();
+	State delta();
 	bool exist(vector<StateItem>);
 	bool operator==(const StateItem& x) const;
 	bool operator<(const StateItem& x) const;
