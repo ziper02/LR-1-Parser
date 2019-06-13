@@ -22,7 +22,7 @@ void State::clousre(LR1 context)
 						forfirst.push_back(state_item.lookahead);
 						for (Terminal terminal : context.First(forfirst))
 						{
-							StateItem state(rule, terminal);
+							StateItem state(rule, terminal,context);
 							if (state.exist(this->rules) == false)
 								rules.push_back(state);
 						}
@@ -33,4 +33,28 @@ void State::clousre(LR1 context)
 		if (size != rules.size())
 			flag = true;
 	}
+}
+
+
+
+void State::delta()
+{
+	for(StateItem rule : rules)
+	{
+		if ((rule.sperator + 1) != rule.rule.rightSide.expression.size())
+			rule.sperator++;
+	}
+	this->clousre(rules.at(0).context);
+}
+
+bool State::operator==(const State& x) const
+{
+	if (this->rules.size() != x.rules.size())
+		return false;
+	for(StateItem rule : this->rules)
+	{
+		if (!rule.exist(x.rules))
+			return false;
+	}
+	return true;
 }

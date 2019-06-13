@@ -109,10 +109,12 @@ public:
 	Rule rule;
 	int sperator;
 	Terminal lookahead;
+	LR1 context;
 	StateItem() {};
-	StateItem(Rule, Terminal);
+	StateItem(Rule, Terminal,LR1);
 	vector<IItem>getBeta();
-	State delta();
+	
+	IItem getnext();
 	bool exist(vector<StateItem>);
 	bool operator==(const StateItem& x) const;
 	bool operator<(const StateItem& x) const;
@@ -122,10 +124,10 @@ class State
 {
 public:
 	vector<StateItem> rules;
-	vector<Edge> edges;
-	State() {};
+	State() = default;
 	void clousre(LR1);
-	bool StateItemExist(StateItem);
+	void delta();
+	bool operator==(const State& x) const;
 };
 
 class Automata
@@ -133,9 +135,10 @@ class Automata
 public:
 	State start;
 	vector<State> stats;
+	map<pair<State, IItem>, State> getState;
 	LR1 context;
 	Automata(LR1);
-	
+	bool stateExist(State);
 	
 };
 

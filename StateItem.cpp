@@ -1,9 +1,10 @@
 #include "lr(1) parser/LR_1.h"
 
-StateItem::StateItem(Rule rule, Terminal terminal)
+StateItem::StateItem(Rule rule, Terminal terminal,LR1 context)
 {
 	this->rule = rule;
 	this->lookahead = terminal;
+	this->context = context;
 	sperator = 0;
 }
 
@@ -77,19 +78,10 @@ bool StateItem::operator < (const StateItem& x) const
 }
 
 
-State StateItem::delta()
+
+
+
+IItem StateItem::getnext()
 {
-	State res;
-	if ((sperator + 1) == this->rule.rightSide.expression.size())
-		return res;
-	else
-	{
-		res.rules.push_back(StateItem(this->rule, this->lookahead));
-		sperator++;
-
-	}
-
-
+	return rule.rightSide.expression.at(sperator + 1);
 }
-
-
