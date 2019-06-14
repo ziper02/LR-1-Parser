@@ -77,7 +77,7 @@ bool State::operator==(const State& x) const
 
 bool State::operator<(const State& x) const
 {
-	if (this->rules.size() < x.rules.size())
+	/*if (this->rules.size() < x.rules.size())
 		return false;
 	if (this->rules.size() > x.rules.size())
 		return true;
@@ -94,5 +94,9 @@ bool State::operator<(const State& x) const
 	}
 	if (countx > countthis)
 		return true;
-	return false;
+	return false;*/
+	if (index < x.index)
+		return true;
+	else
+		return false;
 }

@@ -8,6 +8,7 @@ Automata::Automata(LR1 context)
 	start.rules.push_back(StateItem(Rule(this->context.start),Terminal("$"),context));
 	start.clousre(this->context);
  	stats.push_back(start);
+	start.index=0;
 	int flagsize = 0;
 	
 	while(flagsize != stats.size())
@@ -49,7 +50,11 @@ Automata::Automata(LR1 context)
 						input.first = state;
 						input.second = temp;
 						if (!this->stateExist(st))
+						{
+							st.index = stats.size();
 							stats.push_back(st);
+						}
+							
 						if (getState.count(input) == 0)
 							getState[input] = st;
 					}
@@ -73,7 +78,7 @@ bool Automata::stateExist(State st)
 
 void Automata::printAutomata()
 {
-	cout << "Automata:\n\n";
+	cout << "\n Automata:\n\n";
 	int i = 0;
 	for(State state: stats)
 	{

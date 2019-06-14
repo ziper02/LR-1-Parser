@@ -116,6 +116,7 @@
     <ClCompile Include="lr(1) parser\Variable.cpp" />
     <ClCompile Include="State.cpp" />
     <ClCompile Include="StateItem.cpp" />
+    <ClCompile Include="table.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="lr(1) parser\LR_1.h" />

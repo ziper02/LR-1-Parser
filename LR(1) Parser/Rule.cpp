@@ -69,3 +69,17 @@ bool Rule::includeTerminal()
 	}
 	return false;
 }
+
+
+bool Rule::operator==(const Rule& x) const
+{
+	int xsize = x.rightSide.expression.size();
+	if (xsize != rightSide.expression.size())
+		return false;
+	if (x.leftSide != leftSide)
+		return false;
+	for (int i = 0; i < x.rightSide.expression.size(); i++)
+		if (x.rightSide.expression.at(i) != rightSide.expression.at(i))
+			return false;
+	return true;
+}

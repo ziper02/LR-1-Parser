@@ -78,6 +78,7 @@ public:
 	//Rule(const Rule&);
 	bool includeTerminal();
 	string getRuleString();
+	bool operator==(const Rule& x) const;
 };
 
 class LR1
@@ -118,6 +119,7 @@ public:
 class State
 {
 public:
+	int index;
 	vector<StateItem> rules;
 	State() = default;
 	void clousre(LR1);
@@ -133,12 +135,27 @@ public:
 	vector<State> stats;
 	map<pair<State, IItem>, State> getState;
 	LR1 context;
+	Automata() {};
 	Automata(LR1);
 	void printAutomata();
 	bool stateExist(State);
 	
 };
 
+class table
+{
+public :
+	map<pair<int, Terminal>, pair<char, int>> ACTION;
+	map<pair<int, Variable>, int> GOTO;
+	Automata automata;
+	set<Terminal> terminals;
+	set<Variable> variables;
+
+	table() {};
+	table(Automata);
+	void print();
+
+};
 
 
 
