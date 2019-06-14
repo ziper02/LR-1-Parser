@@ -7,7 +7,7 @@ Automata::Automata(LR1 context)
 	this->context = context;
 	start.rules.push_back(StateItem(Rule(this->context.start),Terminal("$"),context));
 	start.clousre(this->context);
-	stats.push_back(start);
+ 	stats.push_back(start);
 	int flagsize = 0;
 	
 	while(flagsize != stats.size())
@@ -34,7 +34,11 @@ Automata::Automata(LR1 context)
 					for (StateItem state_item2 : state.rules)
 					{
 						if (state_item.getnext() == state_item2.getnext() && state_item2.exist(st.rules) == false)
+						{
 							st.rules.push_back(StateItem(state_item2.rule, state_item2.lookahead, context));
+							st.rules.at(st.rules.size() - 1).sperator = state_item2.sperator;
+						}
+							
 					}
 					IItem temp = st.rules.at(0).getnext();
 
@@ -66,3 +70,53 @@ bool Automata::stateExist(State st)
 	return false;
 }
 
+
+void Automata::printAutomata()
+{
+	cout << "Automata:\n\n";
+	int i = 0;
+	for(State state: stats)
+	{
+		cout << "Stage number " << i <<"\n";
+		for(StateItem state_item: state.rules)
+		{
+			state_item.print();
+			cout << "\n";
+		}
+		i++;
+		cout << "\n";
+	}
+	i = 0;
+	for (State state : stats)
+	{
+		cout << i << " : ";
+		vector<pair<int, IItem>> test;
+		for (StateItem state_item : state.rules)
+		{
+			IItem temp=state_item.getnext();
+			pair<State, IItem> input;
+			input.first = state;
+			input.second = temp;
+			if (getState.count(input) != 0)
+			{
+				int j = 0;
+				for (State state2 : stats)
+				{
+					if (getState[input] == state2)
+						break;
+					j++;
+				}
+				pair<int, IItem> input2;
+				input2.first = j;
+				input2.second = temp;
+				if(find(test.begin(),test.end(),input2)==test.end())
+				{
+					cout << "[ " << j << " , " << temp.name << " ]";
+					test.push_back(input2);
+				}	
+			}
+		}
+		i++;
+		cout << "\n";
+	}
+}

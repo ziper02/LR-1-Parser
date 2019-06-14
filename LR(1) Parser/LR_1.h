@@ -95,14 +95,6 @@ private:
 	void createStartRule(string);
 };
 
-class Edge
-{
-public:
-	IItem cross;
-	State *target;
-	Edge() {};
-	Edge(IItem);
-};
 
 class StateItem
 {
@@ -118,6 +110,7 @@ public:
 	bool equalstwo(StateItem state);*/
 	IItem getnext();
 	bool exist(vector<StateItem>);
+	void print();
 	bool operator==(const StateItem& x) const;
 	bool operator<(const StateItem& x) const;
 };
@@ -141,6 +134,7 @@ public:
 	map<pair<State, IItem>, State> getState;
 	LR1 context;
 	Automata(LR1);
+	void printAutomata();
 	bool stateExist(State);
 	
 };

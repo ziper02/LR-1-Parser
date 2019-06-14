@@ -111,6 +111,18 @@ bool StateItem::operator < (const StateItem& x) const
 
 
 
+void StateItem::print()
+{
+	string st = rule.getRuleString();
+	char ch = 250;
+	int clacsp=0;
+	for (int i=0;i<sperator;i++)
+		clacsp += rule.rightSide.expression.at(i).name.size()+1;
+	st.insert(rule.leftSide.short_name.size()+7+ clacsp, 1, ch);
+	cout << st << "," << lookahead.name;
+}
+
+
 
 
 IItem StateItem::getnext()
