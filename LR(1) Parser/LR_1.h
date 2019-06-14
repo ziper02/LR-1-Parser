@@ -114,7 +114,8 @@ public:
 	StateItem() {};
 	StateItem(Rule, Terminal,LR1);
 	vector<IItem>getBeta();
-	
+	/*bool existwo(vector<StateItem> x);
+	bool equalstwo(StateItem state);*/
 	IItem getnext();
 	bool exist(vector<StateItem>);
 	bool operator==(const StateItem& x) const;

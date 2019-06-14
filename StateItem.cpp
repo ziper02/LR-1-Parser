@@ -34,6 +34,35 @@ bool StateItem::exist(vector<StateItem> x)
 	return false;
 }
 
+/*
+bool StateItem::existwo(vector<StateItem> x)
+{
+	for (StateItem state : x)
+	{
+		if (this->equalstwo(state))
+			return true;
+	}
+	return false;
+}
+
+
+bool StateItem::equalstwo(StateItem state)
+{
+	if (this->sperator != state.sperator)
+		return false;
+	int xsize = state.rule.rightSide.expression.size();
+	if (xsize != rule.rightSide.expression.size())
+		return false;
+	if (state.rule.leftSide != rule.leftSide)
+		return false;
+	for (int i = 0; i < state.rule.rightSide.expression.size(); i++)
+		if (state.rule.rightSide.expression.at(i) != rule.rightSide.expression.at(i))
+			return false;
+	return true;
+}
+*/
+
+
 
 
 
@@ -43,6 +72,8 @@ bool StateItem::operator == (const StateItem& x) const
 		return false;
 	int xsize = x.rule.rightSide.expression.size();
 	if (xsize != rule.rightSide.expression.size())
+		return false;
+	if (x.lookahead != lookahead)
 		return false;
 	if (x.rule.leftSide != rule.leftSide)
 		return false;
