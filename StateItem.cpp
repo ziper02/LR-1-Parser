@@ -28,7 +28,10 @@ vector<IItem> StateItem::getBeta()
 
 bool StateItem::exist(vector<StateItem> x)
 {
-	return find(x.begin(), x.end(), *this) != x.end();
+	for (StateItem state : x)
+		if (state == *this)
+			return true;
+	return false;
 }
 
 
@@ -40,8 +43,6 @@ bool StateItem::operator == (const StateItem& x) const
 		return false;
 	int xsize = x.rule.rightSide.expression.size();
 	if (xsize != rule.rightSide.expression.size())
-		return false;
-	if (!(x.lookahead == lookahead))
 		return false;
 	if (x.rule.leftSide != rule.leftSide)
 		return false;

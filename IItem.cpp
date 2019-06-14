@@ -9,6 +9,14 @@ bool IItem::isTerminal()
 		return false;
 }
 
+
+bool IItem::isTerminalFixed()
+{
+	if (name.at(0) == '<')
+		return false;
+	return true;
+}
+
 bool IItem::isExist(vector<IItem> vec) const
 {
 	for(IItem check : vec)

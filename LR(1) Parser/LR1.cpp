@@ -103,10 +103,11 @@ map<IItem,set<Terminal>> LR1::First()
 	bool flag=true;
 	for(Rule rule: this->rules)
 	{
-		for(IItem item: rule.rightSide.expression)
+		for(int i=0;i<rule.rightSide.expression.size();i++)
 		{
-			if (Terminal * p = dynamic_cast<Terminal*>(&item))
-				result[item] = { *p };
+			IItem item = rule.rightSide.expression.at(i);
+			if (item.isTerminalFixed())
+				result[item] = { Terminal(item.name) };
 			else
 				result[item] = {};
 		}

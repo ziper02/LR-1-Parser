@@ -29,6 +29,7 @@ public:
 	bool isExist(vector<IItem>) const;
 	bool isExist(vector<IItem>);
 	bool isTerminal();
+	bool isTerminalFixed();
 	bool operator < (const IItem& x) const;
 	bool operator > (const IItem& x) const;
 };
