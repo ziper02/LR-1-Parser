@@ -149,3 +149,84 @@ void table::print()
 		cout << "\n";
 	}
 }
+
+
+void table::parse(vector<string> str)
+{
+	vector<Terminal> Input;
+	stack <pair<IItem, int>> Stack;
+	pair<IItem, int> inputSTACK;
+	pair<int, Terminal> inputACTION;
+	pair<int, Variable> inputGOTO;
+	Rule rule;
+	bool flag=true;
+	cout << "\n Start Prasing: ";
+	for(string ch: str)
+	{
+		cout << ch;
+		Input.push_back(Terminal(ch));
+	}
+	Input.push_back(Terminal("$"));
+	inputSTACK.first = Terminal("$");
+	inputSTACK.second = 0;
+	Stack.push(inputSTACK);
+	cout << "\n";
+	while(flag)
+	{
+		flag = false;
+		inputACTION.first = Stack.top().second;
+		if (Input.size() != 0)
+			inputACTION.second = Input.at(0);
+		else
+		{
+			cout << "\nparsing failed\n";
+			return;
+		}
+
+		
+		if(ACTION[inputACTION].first=='s')
+		{
+			inputSTACK.first = Input.at(0);
+			inputSTACK.second = ACTION[inputACTION].second;
+			if(Input.size()==0)
+			{
+				cout << "\nparsing failed\n";
+				return;
+			}
+			cout << "Shift " << inputACTION.second.name<<"\n";
+			Input.erase(Input.begin());
+			Stack.push(inputSTACK);
+			flag = true;
+		}
+		else if (ACTION[inputACTION].first == 'r')
+		{
+			rule = automata.context.rules.at(ACTION[inputACTION].second);
+			for (int i = 0; i < rule.rightSide.expression.size(); i++)
+			{
+				if(Stack.empty()==false)
+					Stack.pop();
+				else
+				{
+					cout << "\nparsing failed\n";
+					return;
+				}
+			}
+			cout << "Reduce " << rule.getRuleString() << "\n";
+			inputSTACK.first = rule.leftSide;
+			inputGOTO.first = Stack.top().second;
+			inputGOTO.second = rule.leftSide;
+			inputSTACK.second = GOTO[inputGOTO];
+			Stack.push(inputSTACK);
+			flag = true;
+		}
+		else if (ACTION[inputACTION].first == 'a')
+		{
+			cout << "\nparsing success\n";
+			return;
+		}
+
+	}
+
+	cout << "\nparsing failed\n";
+
+}

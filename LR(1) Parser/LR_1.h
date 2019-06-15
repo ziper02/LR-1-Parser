@@ -153,6 +153,7 @@ public :
 
 	table() {};
 	table(Automata);
+	void parse(vector<string>);
 	void print();
 
 };
