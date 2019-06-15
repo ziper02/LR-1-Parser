@@ -7,8 +7,9 @@ int main(int argc, const char* argv[]) {
 
 
 	//#1
-	string R2 = "<E> : <T> | <E> + <T>";
+	/*string R2 = "<E> : <T> | <E> + <T>";
 	string R3 = "<T> : i | ( <E> )";
+	*/
 
 	//#2
 	/*string R2 = "<E> : <B> <B>";
@@ -19,13 +20,13 @@ int main(int argc, const char* argv[]) {
 	string R3 = "<A> : a";*/
 
 	//#4
-	/*string R2 = "<S> : <L> = <R> | <R>";
+	string R2 = "<S> : <L> = <R> | <R>";
 	string R3 = "<L> : * <R> | x";
-	string R4 = "<R> : <L>";*/
+	string R4 = "<R> : <L>";
 
-	vector<string> gr = { R2, R3 }; // #1 #2 #3
-	//vector<string> gr = { R2, R3,R4 }; //#4
-	LR1 LR(gr, "<E>");
+	//vector<string> gr = { R2, R3 }; // #1 #2 #3
+	vector<string> gr = { R2, R3,R4 }; //#4
+	LR1 LR(gr, "<S>");
 	LR.printGrammer();
 	Automata automata(LR);
 	automata.printAutomata();
@@ -43,7 +44,19 @@ int main(int argc, const char* argv[]) {
 	t.parse(input);*/
 
 	//#1
-	vector<string> input = { "(", "i", "+", "i", ")" };
+	/*vector<string> input = { "(", "i", "+", "i", ")" };
+	t.parse(input);*/
+
+	//#4
+	vector<string> input = { "x", "=", "*", "x" };
+	t.parse(input);
+	input = { "x", "=", "x" };
+	t.parse(input);
+	input = { "x", "=","=", "x" };
+	t.parse(input);
+	input = { "x", "x","=", "x" };
+	t.parse(input);
+	input = { "x", "=","x", "x" };
 	t.parse(input);
 	cout << "\nPress enter for exit...";
 	getchar();
