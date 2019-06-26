@@ -150,7 +150,7 @@ public :
 	Automata automata;
 	set<Terminal> terminals;
 	set<Variable> variables;
-
+	bool isItLR1;
 	table() {};
 	table(Automata);
 	void parse(vector<string>);

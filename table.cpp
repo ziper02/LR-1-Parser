@@ -5,6 +5,7 @@ table::table(Automata automata)
 	LR1 context = automata.context;
 	this->automata = automata;
 	int i = 0;
+	isItLR1 = true;
 	for(Rule rule : context.rules)
 	{
 		for(IItem item: rule.rightSide.expression)
@@ -45,7 +46,19 @@ table::table(Automata automata)
 					pair<char, int> result;
 					result.first = 's';
 					result.second = j;
-					ACTION[tempterminal] = result;
+					if(ACTION.count(tempterminal)==0)
+						ACTION[tempterminal] = result;
+					else
+					{
+						pair<char, int> resultexist;
+						resultexist.first = ACTION[tempterminal].first;
+						resultexist.second = ACTION[tempterminal].second;
+						if(result.first!= resultexist.first || result.second != resultexist.second )
+						{
+							isItLR1 = false;
+							return;
+						}
+					}
 				}
 				else
 				{
@@ -65,7 +78,19 @@ table::table(Automata automata)
 					pair<char, int> result;
 					result.first = 'a';
 					result.second = -1;
-					ACTION[input] = result;
+					if (ACTION.count(input) == 0)
+						ACTION[input] = result;
+					else
+					{
+						pair<char, int> resultexist;
+						resultexist.first = ACTION[input].first;
+						resultexist.second = ACTION[input].second;
+						if (result.first != resultexist.first || result.second != resultexist.second)
+						{
+							isItLR1 = false;
+							return;
+						}
+					}
 				}
 				else if (state_item.rule.rightSide.expression.size() == state_item.sperator)
 				{
@@ -80,7 +105,19 @@ table::table(Automata automata)
 							pair<char, int> result;
 							result.first = 'r';
 							result.second = k;
-							ACTION[input] = result;
+							if (ACTION.count(input) == 0)
+								ACTION[input] = result;
+							else
+							{
+								pair<char, int> resultexist;
+								resultexist.first = ACTION[input].first;
+								resultexist.second = ACTION[input].second;
+								if (result.first != resultexist.first || result.second != resultexist.second)
+								{
+									isItLR1 = false;
+									return;
+								}
+							}
 						}
 						k++;
 					}
@@ -89,10 +126,16 @@ table::table(Automata automata)
 		}
 		i++;
 	}
+	
 }
 
 void table::print()
 {
+	if (isItLR1 == false)
+	{
+		cout << "We build Automate but we cant build table , this language is not L1\n";
+		return;
+	}
 	cout << "\nACTION Table : \n\n";
 	int i = 0;
 	for(Terminal terminal: terminals)
@@ -160,6 +203,11 @@ void table::parse(vector<string> str)
 	pair<int, Variable> inputGOTO;
 	Rule rule;
 	bool flag=true;
+	if(isItLR1==false)
+	{
+		cout << "Cant prasing exp because table is not exist.\n";
+		return;
+	}
 	cout << "\n Start Prasing: ";
 	for(string ch: str)
 	{
