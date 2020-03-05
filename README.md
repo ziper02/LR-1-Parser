@@ -17,16 +17,13 @@ The software get as input context-free grammar and print LR(1)(if possible) for 
 ## Example
 
 ### _<p align="center"> Input </p>_
-![alt text](https://github.com/ziper02/LR1/blob/master/images/Rules.PNG "Input")
-  
-### _<p align="center"> Automata States</h3> </p>_  
-![alt text](https://github.com/ziper02/LR1/blob/master/images/Auto1.PNG "Automata states") ![alt text](https://github.com/ziper02/LR1/blob/master/images/Auto2.PNG "Automata states")
+<p align="center"><img src="https://github.com/ziper02/LR1/blob/master/images/Rules.PNG"/></p>
+
+### _<p align="center"> Automata States</h3> </p>_
+<p align="center"><img src="https://github.com/ziper02/LR1/blob/master/images/Auto1.PNG"/><img src="https://github.com/ziper02/LR1/blob/master/images/Auto2.PNG"/></p>  
   
 ### _<p align="center"> Parser Table </p>_ 
-![alt text](https://github.com/ziper02/LR1/blob/master/images/Table.PNG "Parser Table")
+<p align="center"><img src="https://github.com/ziper02/LR1/blob/master/images/Table.PNG"/></p>
 
 ### _<p align="center"> Parsing Example </p>_ 
-![alt text](https://github.com/ziper02/LR1/blob/master/images/parsing.PNG "Example")
-
-
-
+<p align="center"><img src="https://github.com/ziper02/LR1/blob/master/images/parsing.PNG"/></p>
