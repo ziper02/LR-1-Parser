@@ -23,7 +23,7 @@ The software get as input context-free grammar and print LR(1)(if possible) for 
 <p align="center"><img src="https://github.com/ziper02/LR1/blob/master/images/Auto1.PNG" width="190" height="430"/><img src="https://github.com/ziper02/LR1/blob/master/images/Auto2.PNG" width="190" height="430"/></p>  
   
 ### _<p align="center"> Parser Table </p>_ 
-<p align="center"><img src="https://github.com/ziper02/LR1/blob/master/images/Table.PNG"/></p>
+<p align="center"><img src="https://github.com/ziper02/LR1/blob/master/images/Table.PNG" width="250" height="530"/></p>
 
 ### _<p align="center"> Parsing Example </p>_ 
-<p align="center"><img src="https://github.com/ziper02/LR1/blob/master/images/parsing.PNG"/></p>
+<p align="center"><img src="https://github.com/ziper02/LR1/blob/master/images/parsing.PNG" width="220" height="250"/></p>
